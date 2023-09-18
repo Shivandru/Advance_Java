@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS_Timer</title>
+    <style>
+        *{
+            font-family: sans-serif;
+            margin-left: 30px;
+        }
+        h1{
+            text-align: center;
+            text-decoration: underline;
+        }
+       input{
+        display: block;
+        margin-bottom: 10px;
+        margin-top: 20px;
+        border: 2px solid black;
+        height: 100px;
+        font-size: 20px;
+        text-align: center;
+       }
+       button{
+        cursor: pointer;
+        border: none;
+        background-color: red;
+        color: white;
+        padding: 10px;
+        border-radius: 10px;
+       }
+    </style>
+</head>
+<body>
+    <!-- Create a timer.html page
+Create input boxes which accepts time. (minutes, seconds and hours should be taken)
+have the following buttons start, pause, reset
+on start, the countdown should start
+on pause the timer should be pause
+on reset reset and stop the timer -->
+<h1>JS-Timer</h1>
+<input type="text" id="timer" placeholder="hr : min : sec">
+<h3 id="warn"></h3>
+<button id="start" onclick="startTimer()">Start</button>
+<button id="pause" onclick="Pause()">Pause</button>
+<button id="reset" onclick="Reset()">Reset</button>
+</body>
+<script>
+    let inpBtn = document.querySelector("#timer");
+    let startBtn = document.querySelector("#start");
+    let pauseBtn = document.querySelector("#pause");
+    let resetBtn = document.querySelector("#reset");
+    let displayWarn = document.querySelector("#warn")
+    let hours;
+    let minutes;
+    let seconds;
+    let timer;
+    let flag = true;
+    let arr = [];
+    function action(){
+        arr = inpBtn.value.split(":")
+            seconds = +arr[2];
+            minutes = +arr[1];
+            hours = +arr[0];
+            if(minutes > 60 || seconds > 60){
+                displayWarn.innerText = "Enter Valid Time"
+            }
+            else{
+            if(seconds < 60){
+                seconds--;
+            }
+            if(seconds <= 0){
+                minutes--;
+                seconds = 59;
+            }
+            if(minutes <= 0){
+                hours--;
+                minutes = 59;
+                seconds = 59;
+            }
+           inpBtn.value = hours + " : " + minutes + " : " + seconds;
+    }
+}
+    
+
+
+
+   function startTimer(){
+    if(flag == true){
+        timer = setInterval(action, 100);
+        flag = false;
+    }
+}
+
+    function Pause(){
+        if(flag == false){
+            clearInterval(timer);
+            flag = true;
+        }
+        
+    }
+    function Reset(){
+        clearInterval(timer);
+        inpBtn.value = "00 : 00 : 00";
+    }
+</script>
+</html>

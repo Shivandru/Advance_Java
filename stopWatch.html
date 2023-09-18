@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS-Stopwatch</title>
+    <style>
+        #display{
+            height: 200px;
+            width: 25%;
+            border: 2px solid red;
+            font-size: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- JS STOPWATCH
+Create a stopwatch.html page
+have the following buttons start, pause, reset
+on start, the stopwatch should start
+on pause, the stopwatch should pause
+on reset, it should go back to initial state -->
+<div id="container">
+    <h1>Js-Stopwatch</h1>
+    <div id="display">00:00:00</div>
+    <button id="start" onclick="Start()">Start</button>
+    <button id="stop" onclick="Stop()">Stop</button>
+    <button id="reset" onclick="Reset()">Reset</button>
+</div>
+</body>
+<script>
+    let display = document.querySelector("#display");
+    let startBtn = document.querySelector("#Start");
+    let stopBtn = document.querySelector("#stop")
+    let resetBtn = document.querySelector("#reset")
+    let second = 0;
+    let minute = 0;
+    let hour = 0;
+    let timer;
+    let flag = true;
+    function action(){
+        second++;
+       display.innerText = hour + ":" + minute + ":" + second;
+       if(second >= 59){
+        minute++;
+        second = 0;
+        display.innerText = hour + ":" + minute + ":" + second;
+       }
+       if(minute >= 59){
+        hour++;
+        minute = 0;
+        second = 0;
+        display.innerText = hour + ":" + minute + ":" + second;
+       }
+        
+    }
+
+    function Start(){
+        if(flag == true){
+            timer = setInterval(action, 1000)
+            flag = false;
+        }
+        
+    }
+    function Stop(){
+        if(flag == false){
+            flag = true
+            clearInterval(timer)
+        }
+        
+    }
+    function Reset(){
+        clearInterval(timer);
+        second = 0;
+        minute = 0;
+        hour = 0;
+        display.innerText = "0" + hour + ":" + 0 + minute + ":" + 0 + second;
+        flag = true;
+    }
+</script>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slide Show</title>
+    <style>
+        *{
+            text-align: center;
+        }
+        #container{
+            height: 500px;
+            width: 300px;
+            /* border: 1px solid black; */
+            position: relative;
+            margin: auto;
+        }
+
+        #imgDiv{
+            height: 300px;
+            width: 90%;
+            /* border: 2px solid red; */
+            margin-top: 50px;
+        }
+       img{
+            display: block;
+            width: 100%;
+        }
+        #startStop{
+            margin-left: 50px;
+        }
+        #prev{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+        #next{
+            position: absolute;
+            bottom: 0;
+            left: 110px;
+        }
+        #startStop{
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Create a slide show with at least 20 images (take some dummy images)
+There should be a button to stop the slide show and start the slide show (see if you can do both start and stop using single button)
+Provide a next and previous button below the slide show.
+On clicking the next or previous button the automatic slide show will stop
+And it will work as a normal slider -->
+<div id="container">
+<div id="imgDiv"><img src="" alt=""></div>
+<button id="prev"> prevImage </button>
+<button id="next"> nextImage </button>
+<button id="startStop">startStop</button>
+</div>
+</body>
+<script>
+    let imgArr = [
+    "https://th.bing.com/th/id/OIP.YqlNlZ4Mxrr5XDPbNcXBlAHaGL?w=186&h=155&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+    "https://th.bing.com/th/id/OIP.wUDppbiYXuyol7yvpJvpQAHaJ6?w=186&h=249&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+    "https://th.bing.com/th/id/OIP.vp-MfnUvaco1P58WmNZrlAHaK3?w=186&h=273&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+    "https://th.bing.com/th/id/OIP.m7jtkDCV_uq-BNudYLzTWgHaE7?w=186&h=123&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+    "https://th.bing.com/th/id/OIP.89WZFamv5V5OiylZcsZ2PgHaDt?w=186&h=93&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+    "https://th.bing.com/th/id/OIP.FTDPjXIcOl5rWZVEYsnFlAHaLm?w=186&h=292&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+    "https://th.bing.com/th/id/OIP.dkQumwU9fEO8ohBxE49UeQHaEK?w=186&h=104&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+    "https://th.bing.com/th/id/OIP.4tDH6ZN9-ookcwRH_oCCVAAAAA?w=186&h=286&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+    "https://th.bing.com/th/id/OIP.nnOWF9dXId26cfnPS-_cDwHaE-?w=186&h=124&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+    "https://th.bing.com/th/id/OIP.toViE9uboeE5cELjv8B-kQHaFj?w=186&h=140&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+    "https://th.bing.com/th/id/OIP.94hexUQuP3Gqo8Pjxg1BkgHaD4?w=186&h=98&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+    "https://th.bing.com/th/id/OIP.I3b-6guLTz5jX4t3LyiJGQHaLS?w=186&h=283&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+    "https://th.bing.com/th/id/OIP.KsNbfF2Lv129856YcgcKdgHaJ2?w=186&h=248&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+    "https://th.bing.com/th/id/OIP.RW40yBraIUB4kQmgaBw0FAAAAA?w=186&h=186&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+    "https://th.bing.com/th/id/OIP.Q30mAg19cvtIwOhjNBO8zAHaE8?w=186&h=124&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+    "https://th.bing.com/th/id/OIP.527kYYgjmSPJq3cRPzrk2AAAAA?w=186&h=267&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+    "https://th.bing.com/th/id/OIP.oBQE4K0M09zdq51NklRHMwAAAA?w=186&h=116&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+    "https://th.bing.com/th/id/OIP.iN9MTFrCNtV1y39cF8D1BwAAAA?w=186&h=285&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+    "https://th.bing.com/th/id/OIP.GdWCUU4GlvOOGIhSYr1k0AHaHa?w=186&h=186&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+    "https://th.bing.com/th/id/OIP.Q-Tsct60QSooMukrb7ITDwHaFj?w=186&h=140&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+    "https://th.bing.com/th/id/OIP.-zROMRH4pDT5LpXMMyezhAHaFj?w=186&h=140&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+    "https://th.bing.com/th/id/OIP.EWy1c80kmiuLgwkkwcdIRwAAAA?w=186&h=286&c=7&r=0&o=5&dpr=1.3&pid=1.7",   
+    ]
+    let display = document.querySelector("img");
+    let next = document.querySelector("#next");
+    let prev = document.querySelector("#prev");
+    let reset = document.querySelector("#startStop")
+    let currentImg = 0;
+    let id;
+    display.setAttribute("src", imgArr[currentImg])
+
+    next.addEventListener("click", function(){
+        currentImg++;
+        if(currentImg > imgArr.length-1){
+            currentImg = 0; 
+        }
+        clearInterval(id)
+        display.setAttribute("src", imgArr[currentImg])
+    })
+    prev.addEventListener("click", function(){
+        currentImg--;
+        if(currentImg < 0) currentImg = imgArr.length-1;
+        clearInterval(id)
+        display.setAttribute("src", imgArr[currentImg])
+    })
+    function slideShow(){
+        currentImg++;
+        if(currentImg > imgArr.length-1) currentImg = 0;
+        display.setAttribute("src", imgArr[currentImg])
+    }
+    let flag = true;
+    reset.addEventListener("click", function(){
+        if(flag == true){
+            id = setInterval(slideShow,1000);
+            flag = false;
+        }
+        else if(flag == false){
+            clearInterval(id);
+            flag = true;
+        }
+    })
+</script>
+</html>
