@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhonePay</title>
+    <style>
+        body{
+            background-color: purple;
+            font-family: sans-serif;
+        }
+        img{
+            display: block;
+            margin: auto;
+        }
+        label{
+            color: white;
+        }
+        input{
+            margin-top: 200px;
+            height: 50px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        button{
+            border: none;
+            padding: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        #overLay{
+            position: fixed;
+            display: none;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 2;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <img src="https://1.bp.blogspot.com/-zvs6PHX_YeQ/XTSYx2izSlI/AAAAAAAAQho/mgE44HEiPrU7TaDM-qVUnyseW8Cn-FgowCLcBGAs/s320/phonePe_logo.png" alt="">
+    <label for="amountInp">Enter Amount:</label>
+    <input type="number" id="amountInp" placeholder="Amount in rupees"> <button onclick="WithdrawAmount()">Withdraw</button>
+    <div id="overLay"></div>
+</body>
+<script>
+    let inpValue = document.querySelector("#amountInp");
+    let displayImg = document.querySelector("#overLay");
+    let walletAmount = 50000;
+    let image = document.createElement("img");
+        function WithdrawAmount(){
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                if(inpValue.value <= walletAmount){
+                    image.src = "https://www.dealnloot.com/wp-content/uploads/2016/09/phonepe-transaction-successful-Rs-25-credited-to-bank-account.png";
+                    displayImg.style.display = "block";
+                    displayImg.style.paddingTop = "100px";
+                    displayImg.append(image);
+                    setTimeout(overLayStop, 4000)
+                }
+                else{
+                    image.src = "https://i.ytimg.com/vi/-5ToNIF2SEQ/hqdefault.jpg";
+                    displayImg.style.display = "block";
+                    displayImg.style.paddingTop = "100px";
+                    displayImg.append(image);
+                    setTimeout(overLayStop, 4000)
+                }
+            },Math.floor(Math.random() * 5000) + 1000)
+        })
+    }
+    function overLayStop(){
+        displayImg.style.display = "none";
+        inpValue.value = "";
+    }
+</script>
+</html>

@@ -92,6 +92,19 @@
             font-family: sans-serif;
             font-weight: 700;
         }
+        #overlay{
+            position: fixed;
+            display: none;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 2;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -162,28 +175,54 @@
             <button id="yourOrders">Order Food</button>
         </div>
     </div>
+    <div id="overlay"></div>
 </body>
 <script>
     let addOrder = document.querySelectorAll(".addFood");
     let orderList = document.querySelector("#listOfFood");
     let arrFood = [];
+    let orderMeal = document.querySelector("#yourOrders");
     let orderFood = document.querySelector("#yourOrders");
     let displayBtn = document.querySelector("#display");
     let para = document.querySelectorAll("p");
+    let images = document.querySelectorAll("img");
     let listOfFoods = document.querySelector("#listOfFood");
-
+    let overlayFood = document.querySelector("#overlay");
     for(let i = 0; i < addOrder.length; i++){
         addOrder[i].addEventListener("click", function(){
         let food = para[i].innerText;
+        let foodImage = images[i];
         arrFood.push(food);
         arrFood.map((ele) => {
         arrFood = [];
         let li = document.createElement("li");
         li.innerHTML = ele;
         listOfFoods.append(li);
+        orderMeal.addEventListener("click", function(){
+            let newButton = document.createElement("button");
+            newButton.innerHTML = "Processing Your Order";
+            newButton.style.backgroundColor = "yellow";
+           let myPromise = new Promise(function(resolve, reject){
+            setTimeout(function(){
+                newButton.innerHTML = "Your Order is ready";
+                newButton.style.backgroundColor = "green";
+                foodImage.style.display = "block";
+                foodImage.style.margin = "auto";
+                foodImage.style.marginTop = "100px";
+                foodImage.style.width = "150px";
+                overlayFood.append(foodImage);
+                overlayFood.style.display = "block";
+                setTimeout(overLayStop, 10000)
+            }, Math.floor(Math.random() * 10000) + 1000)
+           })
+            li.append(newButton);
+        })
     })
     })
     }
-    
+    function overLayStop(){
+        overlayFood.style.display = "none";
+    }
+
 </script>
 </html>
