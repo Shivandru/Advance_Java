@@ -16,23 +16,24 @@
             border: 1px solid red;
             margin: auto;
             margin-top: 20px;
-            /* background-color: yellow; */
+            background-color: yellow;
             display: flex;
             justify-content: space-between;
         }
         #menu{
             height: 100%;
             width: 65%;
-            border: 1px solid green;
+            /* border: 1px solid green; */
             display: grid;
             grid-template-columns: repeat(3, 32%);
             grid-template-rows: repeat(3, 32%);
             gap: 10px;
         }
         #menu > div{
-            border: 1px solid black;
+            /* border: 1px solid black; */
             position: relative;
             /* background-color: white; */
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
         }
         #menu img{
             display: block;
@@ -64,7 +65,7 @@
         #order{
             height: 100%;
             width: 30%;
-            border: 1px solid blue;
+            /* border: 1px solid blue; */
             position: relative;
         }
         h2{
@@ -182,12 +183,13 @@
     let orderList = document.querySelector("#listOfFood");
     let arrFood = [];
     let orderMeal = document.querySelector("#yourOrders");
-    let orderFood = document.querySelector("#yourOrders");
+    // let orderFood = document.querySelector("#yourOrders");
     let displayBtn = document.querySelector("#display");
     let para = document.querySelectorAll("p");
     let images = document.querySelectorAll("img");
     let listOfFoods = document.querySelector("#listOfFood");
     let overlayFood = document.querySelector("#overlay");
+
     for(let i = 0; i < addOrder.length; i++){
         addOrder[i].addEventListener("click", function(){
         let food = para[i].innerText;
@@ -200,8 +202,8 @@
         listOfFoods.append(li);
         orderMeal.addEventListener("click", function(){
             let newButton = document.createElement("button");
-            newButton.innerHTML = "Processing Your Order";
-            newButton.style.backgroundColor = "yellow";
+            newButton.innerHTML = "Processing Your Order...";
+            newButton.style.backgroundColor = "orange";
            let myPromise = new Promise(function(resolve, reject){
             setTimeout(function(){
                 newButton.innerHTML = "Your Order is ready";
