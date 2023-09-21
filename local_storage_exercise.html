@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalStorage</title>
+    <style>
+        *{
+            font-family: sans-serif;
+        }
+        div{
+            height: 100px;
+            border: 3px solid black;
+            width: 200px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        button{
+            padding: 10px;
+            border: none;
+            background-color: teal;
+            color: aliceblue;
+        }
+        input{
+            height: 30px;
+            border: 2px solid black;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <form id="dataForm">
+        <input type="text" id="userName" placeholder="Enter Name">
+        <input type="number" id="userAge" placeholder="Enter Age">
+        <input type="submit" id="submitForm">
+    </form>
+    <br>
+    <div id="displayData"></div>
+    <button onclick="retrive()">Retrive Your Data</button>
+</body>
+<script>
+    let inpForm = document.querySelector("#dataForm");
+    let inpName = document.querySelector("#userName");
+    let inpAge = document.querySelector("#userAge");
+    let displayBtn = document.querySelector("#displayData");
+
+    inpForm.addEventListener("submit", function(){
+        event.preventDefault();
+        localStorage.setItem("name", inpName.value);
+        localStorage.setItem("Age", inpAge.value);
+    })
+    // localStorage.clear();
+    function retrive(){
+        let displayName = localStorage.getItem("name");
+        let displayAge = localStorage.getItem("Age");
+        displayBtn.innerHTML = "Name: " + displayName + " " +"Age: " + displayAge;
+    }
+</script>
+</html>
