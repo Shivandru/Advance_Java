@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UserData</title>
+    <style>
+        *{
+            font-family: sans-serif;
+            text-align: center;
+        }
+        button{
+            border: none;
+            background-color: red;
+            color: white;
+            padding: 10px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            cursor: pointer;
+        }
+        #root{
+            display: grid;
+            grid-template-columns: repeat(3, 32%);
+            gap: 5px;
+        }
+        .userCard{
+            /* border: 2px solid black; */
+            margin: 10px;
+            background-color: pink;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <button onclick="fectchUsers()">Fetch Users</button>
+    <div id="root"></div>
+</body>
+<script>
+    let flag = true;
+    function fectchUsers(){
+        if(flag){
+            fetch("https://reqres.in/api/users")
+            .then(function(response){
+            return response.json();
+        })
+            .then(function(objData){
+            printData(objData.data)
+        })
+            .catch(function(error){
+            console.error("There was an error in fetching the data.", error);
+        })
+        flag = false
+    }
+    }
+       
+   
+    let rootElement = document.querySelector("#root");
+
+    function printData(data){
+        data.forEach(function(item){
+        let userCard = document.createElement("div");
+        userCard.className = "userCard";
+        let userImage = document.createElement("img");
+        userImage.src = item.avatar;
+        let userId = document.createElement("p");
+        userId.textContent = "Id: " + item.id;
+        let userEmail = document.createElement("p");
+        userEmail.textContent = "Email: " + item.email;
+        let userName = document.createElement("p");
+        userName.textContent = "Name: " + item.first_name + " " + item.last_name;
+
+        userCard.append(userImage, userId, userEmail, userName)
+        rootElement.append(userCard);
+        })
+        
+    }
+</script>
+</html>

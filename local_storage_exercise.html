@@ -50,8 +50,8 @@
         event.preventDefault();
         localStorage.setItem("name", inpName.value);
         localStorage.setItem("Age", inpAge.value);
+        inpForm.reset();
     })
-    // localStorage.clear();
     function retrive(){
         let displayName = localStorage.getItem("name");
         let displayAge = localStorage.getItem("Age");
