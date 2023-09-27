@@ -8,14 +8,10 @@
         *{
             font-family: sans-serif;
         }
-        div{
-            height: 100px;
-            border: 3px solid black;
+        #userData{
+            border-collapse: collapse;
             width: 200px;
             margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
         button{
             padding: 10px;
@@ -37,14 +33,14 @@
         <input type="submit" id="submitForm">
     </form>
     <br>
-    <div id="displayData"></div>
+    <table id="userData" border="2"></table>
     <button onclick="retrive()">Retrive Your Data</button>
 </body>
 <script>
     let inpForm = document.querySelector("#dataForm");
     let inpName = document.querySelector("#userName");
     let inpAge = document.querySelector("#userAge");
-    let displayBtn = document.querySelector("#displayData");
+    let userTable = document.querySelector("#userData");
 
     inpForm.addEventListener("submit", function(){
         event.preventDefault();
@@ -53,9 +49,19 @@
         inpForm.reset();
     })
     function retrive(){
-        let displayName = localStorage.getItem("name");
-        let displayAge = localStorage.getItem("Age");
-        displayBtn.innerHTML = "Name: " + displayName + " " +"Age: " + displayAge;
+        let tr1 = document.createElement("tr");
+        let td1 = document.createElement("td");
+        td1.textContent = "Name";
+        let td2 = document.createElement("td");
+        td2.textContent = "Age";
+        let tr2 = document.createElement("tr");
+        let td3 = document.createElement("td");
+        td3.textContent = localStorage.getItem("name");
+        let td4 = document.createElement("td");
+        td4.textContent = localStorage.getItem("Age");
+        tr1.append(td1, td2);
+        tr2.append(td3, td4);
+        userTable.append(tr1, tr2)
     }
 </script>
 </html>
