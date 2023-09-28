@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>counterClass</title>
+    <style>
+      * {
+        text-align: center;
+        font-family: sans-serif;
+      }
+      #root {
+        border: 2px solid black;
+        width: 300px;
+        margin: auto;
+        height: 100px;
+        margin-top: 50px;
+        margin-bottom: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 30px;
+        font-weight: bold;
+      }
+      button {
+        border: none;
+        padding: 10px;
+        background-color: red;
+        color: white;
+        cursor: pointer;
+      }
+    </style>
+    <!-- Initially:-
+    The count will increment at interval of 1 sec.
+    Provide a start and stop button (Recommended to do it using same button);
+    If user press increment or decrement button
+    Create another functionality where counter will increment and decrement on button click.
+    Provide two buttons for increment and decrement.
+    On clicking of any of these buttons the automatic counter will stop.
+    And it will work as manual -->
+  </head>
+  <body>
+    <div id="root">0</div>
+    <button id="increment" onclick="incrementFun()">increment(+)</button>
+    <button id="decrement" onclick="decrementFun()">decrement(-)</button>
+    <button id="StartStop" onclick="startCounter()">Start Stop</button>
+  </body>
+  <script>
+    let display = document.querySelector("#root");
+    class Counter {
+      constructor() {
+        this.count = 0;
+        this.interval = null;
+        this.flag = true;
+      }
+      increment() {
+        this.count++;
+        clearInterval(this.interval);
+        display.textContent = this.count;
+      }
+
+      start() {
+        if (this.flag) {
+          this.interval = setInterval(() => {
+            this.count++;
+            display.textContent = this.count;
+          }, 1000);
+          this.flag = false;
+        } else if (this.flag == false) {
+          clearInterval(this.interval);
+          this.flag = true;
+        }
+      }
+      decrement() {
+        this.count--;
+        clearInterval(this.interval);
+        display.textContent = this.count;
+      }
+    }
+    let newCounter = new Counter();
+
+    function startCounter() {
+      newCounter.start();
+    }
+    function incrementFun() {
+      newCounter.increment();
+    }
+    function decrementFun() {
+      newCounter.decrement();
+    }
+  </script>
+</html>

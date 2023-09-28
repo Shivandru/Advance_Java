@@ -1,89 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>OMDB MOVIE APP</title>
     <style>
-        *{
-            text-align: center;
-        }
-        body{
-            background-color: pink;
-            font-family: sans-serif;
-        }
-        input{
-            height: 50px;
-            margin-top: 50px;
-        }
-        #searchResult{
-            width: 300px;
-            font-size: 20px;
-        }
-        #subBtn{
-            width: 100px;
-        }
-        #root{
-            margin-top: 50px;
-            display: grid;
-            grid-template-columns: repeat(3, 30%);
-            gap: 10px;
-        }
-        .card{
-            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-            padding: 10px;
-        }
+      * {
+        text-align: center;
+      }
+      body {
+        background-color: pink;
+        font-family: sans-serif;
+      }
+      input {
+        height: 50px;
+        margin-top: 50px;
+      }
+      #searchResult {
+        width: 300px;
+        font-size: 20px;
+      }
+      #subBtn {
+        width: 100px;
+      }
+      #root {
+        margin-top: 50px;
+        display: grid;
+        grid-template-columns: repeat(3, 30%);
+        gap: 10px;
+      }
+      .card {
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        padding: 10px;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <form id="movieSearch">
-        <label for="searchResult">Search Your Movie:</label>
-        <input type="text" id="searchResult" placeholder="Search">
-        <input type="submit" id="subBtn">
+      <label for="searchResult">Search Your Movie:</label>
+      <input type="text" id="searchResult" placeholder="Search" />
+      <input type="submit" id="subBtn" />
     </form>
     <div id="root"></div>
-</body>
-<script>
+  </body>
+  <script>
     let omdbKey = "182639cd";
     let movieForm = document.querySelector("#movieSearch");
     let inpMovie = document.querySelector("#searchResult");
     let displayRoot = document.querySelector("#root");
 
-    movieForm.addEventListener("submit", function(event){
-        event.preventDefault();
-        fetch(`https://www.omdbapi.com/?apikey=182639cd&s=${inpMovie.value}`)
+    movieForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+      fetch(`https://www.omdbapi.com/?apikey=182639cd&s=${inpMovie.value}`)
         .then((res) => {
-            return res.json();
+          return res.json();
         })
         .then((resObj) => {
-            let movies = resObj.Search;
-            console.log(movies)
-            displayMovies(movies)
+          let movies = resObj.Search;
+          console.log(movies);
+          displayMovies(movies);
         })
         .catch(() => {
-            displayRoot.textContent = "Error in fetching your Data";
-        })
-        movieForm.reset();
-    })
+          displayRoot.textContent = "Error in fetching your Data";
+        });
+      movieForm.reset();
+    });
 
-    function displayMovies(data){
-        data.forEach(function (item) {
-            let movieCard = document.createElement("div");
-            movieCard.className = "card";
-            let movieImage = document.createElement("img");
-            movieImage.src = item.Poster;
-            let movieTitle = document.createElement("p");
-            movieTitle.textContent = item.Title;
-            let movieYear = document.createElement("p");
-            movieYear.textContent = "Year: " + item.Year;
-            let movieType = document.createElement("p");
-            movieType.textContent = "Type: " + item.Type;
-            let movieId = document.createElement("p");
-            movieId.textContent ="imdb ID: " + item.imdbID;
-            movieCard.append(movieImage, movieTitle, movieYear, movieType, movieId)
-            displayRoot.append(movieCard);
-        })
+    function displayMovies(data) {
+      data.forEach(function (item) {
+        let movieCard = document.createElement("div");
+        movieCard.className = "card";
+        let movieImage = document.createElement("img");
+        movieImage.src = item.Poster;
+        let movieTitle = document.createElement("p");
+        movieTitle.textContent = item.Title;
+        let movieYear = document.createElement("p");
+        movieYear.textContent = "Year: " + item.Year;
+        let movieType = document.createElement("p");
+        movieType.textContent = "Type: " + item.Type;
+        let movieId = document.createElement("p");
+        movieId.textContent = "imdb ID: " + item.imdbID;
+        movieCard.append(movieImage, movieTitle, movieYear, movieType, movieId);
+        displayRoot.append(movieCard);
+      });
     }
-    
-</script>
+  </script>
 </html>
