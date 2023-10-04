@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather2</title>
+    <style>
+        *{
+            text-align: center;
+            font-family: sans-serif;
+        }
+        #container{
+            width: 90%;
+            height: 300px;
+            /* border: 1px solid black; */
+            margin: auto;
+            margin-top: 200px;
+            display: flex;
+            justify-content: space-around;
+        }
+        .day{
+            /* border: 1px solid red; */
+            height: 100%;
+            width: 18%;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        }
+        #inputCity{
+            margin-top: 50px;
+            height: 50px;
+            width: 400px;
+            border-radius: 10px;
+            font-size: 20px;
+        }
+        button{
+            padding: 10px;
+            cursor: pointer;
+            border: none;
+            background-color: teal;
+            color: white;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<!-- In the same weather app, show daily forecast of a city for next 5 days.
+
+You can show this data on new html page or same one as well, your choice.
+
+You can take reference of below image. -->
+<body>
+    <input type="text" id="inputCity" placeholder="Search Your City's Climate"> <button onclick="weather()">Your City</button>
+    <div id="container"></div>
+</body>
+<script>
+    async function weather(){
+        try {
+            let yourCity = document.querySelector("#inputCity").value;
+            let res = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${yourCity}&appid=d65dcca6fcfdef690ff9957e0561fb39`);
+            let data = await res.json();
+            printDetails(data)
+        } catch (error) {
+            console.log("Data Not Found")
+        }
+    }
+
+    let rootElement = document.querySelector("#container");
+
+    function printDetails(data){
+        rootElement.textContent = "";
+        let weatherCard1 = document.createElement("div");
+        weatherCard1.className = "day"
+        let weatherDate1 = document.createElement("p");
+        weatherDate1.textContent = `${data.list[0].dt_txt}`;
+        let weatherLogo1 = document.createElement("img");
+        weatherLogo1.src = `https://openweathermap.org/img/wn/${data.list[0].weather[0].icon}@2x.png`;
+        let cityMinTemp1 = document.createElement("p");
+        cityMinTemp1.textContent = `${Math.floor(data.list[0].main.temp_min - 273)} deg C`
+        let cityMaxTemp1 = document.createElement("p");
+        cityMaxTemp1.textContent = `${Math.floor(data.list[0].main.temp_max -273)} deg C`
+        weatherCard1.append(weatherDate1,weatherLogo1, cityMinTemp1, cityMaxTemp1);
+        
+        let weatherCard2 = document.createElement("div");
+        weatherCard2.className = "day"
+        let weatherDate2 = document.createElement("p");
+        weatherDate2.textContent = `${data.list[8].dt_txt}`
+        let weatherLogo2 = document.createElement("img");
+        weatherLogo2.src = `https://openweathermap.org/img/wn/${data.list[8].weather[0].icon}@2x.png`
+        let cityMinTemp2 = document.createElement("p");
+        cityMinTemp2.textContent = `${Math.floor(data.list[8].main.temp_min - 273)} deg C`
+        let cityMaxTemp2 = document.createElement("p");
+        cityMaxTemp2.textContent = `${Math.floor(data.list[8].main.temp_max -273)} deg C`
+        weatherCard2.append(weatherDate2, weatherLogo2, cityMinTemp2, cityMaxTemp2)
+
+        let weatherCard3 = document.createElement("div");
+        weatherCard3.className = "day"
+        let weatherDate3 = document.createElement("p");
+        weatherDate3.textContent = `${data.list[16].dt_txt}`
+        let weatherLogo3 = document.createElement("img");
+        weatherLogo3.src = `https://openweathermap.org/img/wn/${data.list[16].weather[0].icon}@2x.png`
+        let cityMinTemp3 = document.createElement("p");
+        cityMinTemp3.textContent = `${Math.floor(data.list[16].main.temp_min - 273)} deg C`
+        let cityMaxTemp3 = document.createElement("p");
+        cityMaxTemp3.textContent = `${Math.floor(data.list[16].main.temp_max -273)} deg C`
+        weatherCard3.append(weatherDate3, weatherLogo3, cityMinTemp3, cityMaxTemp3)
+        
+        let weatherCard4 = document.createElement("div");
+        weatherCard4.className = "day"
+        let weatherDate4 = document.createElement("p");
+        weatherDate4.textContent = `${data.list[24].dt_txt}`
+        let weatherLogo4 = document.createElement("img");
+        weatherLogo4.src = `https://openweathermap.org/img/wn/${data.list[24].weather[0].icon}@2x.png`
+        let cityMinTemp4 = document.createElement("p");
+        cityMinTemp4.textContent = `${Math.floor(data.list[24].main.temp_min - 273)} deg C`
+        let cityMaxTemp4 = document.createElement("p");
+        cityMaxTemp4.textContent = `${Math.floor(data.list[24].main.temp_max -273)} deg C`
+        weatherCard4.append(weatherDate4, weatherLogo4, cityMinTemp4, cityMaxTemp4)
+        
+        let weatherCard5 = document.createElement("div");
+        weatherCard5.className = "day"
+        let weatherDate5 = document.createElement("p");
+        weatherDate5.textContent = `${data.list[32].dt_txt}`
+        let weatherLogo5 = document.createElement("img");
+        weatherLogo5.src = `https://openweathermap.org/img/wn/${data.list[32].weather[0].icon}@2x.png`
+        let cityMinTemp5 = document.createElement("p");
+        cityMinTemp5.textContent = `${Math.floor(data.list[32].main.temp_min - 273)} deg C`
+        let cityMaxTemp5 = document.createElement("p");
+        cityMaxTemp5.textContent = `${Math.floor(data.list[32].main.temp_max -273)} deg C`
+        weatherCard5.append(weatherDate5, weatherLogo5, cityMinTemp5, cityMaxTemp5)
+        
+        
+        rootElement.append(weatherCard1, weatherCard2, weatherCard3, weatherCard4, weatherCard5)
+    }
+</script>
+</html>

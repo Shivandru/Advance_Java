@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FETCH SCHOLAR</title>
+    <style>
+        *{
+            text-align: center;
+            font-family: sans-serif;
+            font-weight: bold;
+            font-size: 20px;
+            box-sizing: border-box;
+        }
+        body{
+            background-color: pink;
+        }
+        #navBar{
+            height: 100px;
+            width: 90%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        img{
+            width: 75px;
+        }
+        .imgLogo{
+            width: 30px;
+        }
+        h3{
+            display: inline;
+        }
+        hr{
+            border: 3px solid violet;
+        }
+
+        #product{
+            border: none;
+        }
+        .sort{
+            border: none;
+            cursor: pointer;
+            background-color: rgba(245, 3, 43, 0.434);
+        }
+        #centerImg{
+            margin-top: 100px;
+            width: 100px;
+            margin-bottom: -150px;
+        }
+        #buttonLogo{
+            width: 15px;
+        }
+        button{
+            padding: 15px;
+        }
+        input{
+            height: 50px;
+            margin-top: 200px;
+        }
+        #root{
+            margin: auto;
+            margin-top: 50px;
+            display: grid;
+            grid-template-columns: repeat(3, 30%);
+            gap: 15px;
+        }
+        .card{
+            height: auto;
+            padding: 15px;
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+        }
+        .prodTitle{
+            font-size: 15px;
+        }
+        .prodDes{
+            font-weight: 200;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<!-- Use this API https://fakestoreapi.com/products to fetch all products
+Display all products on DOM
+Your app should have sort and search functionality -->
+<body>
+    <div id="navBar">
+            <img src="https://cdn-icons-png.flaticon.com/128/7708/7708292.png" alt="">
+            <div>
+                <img src="https://cdn-icons-png.flaticon.com/128/900/900618.png" alt="" class="imgLogo">
+                <h3 onclick="electro()">Electronics</h3>
+            </div>
+            <div>
+                <img src="https://cdn-icons-png.flaticon.com/128/775/775385.png" alt="" class="imgLogo">
+                <h3 onclick="jwel()">Jewellery</h3>
+            </div>
+            <div>
+                <img src="https://cdn-icons-png.flaticon.com/128/5699/5699117.png" alt="" class="imgLogo">
+                <h3 onclick="men()">Men's clothing</h3>
+            </div>
+            <div>
+                <img src="https://cdn-icons-png.flaticon.com/128/3534/3534312.png" alt="" class="imgLogo">
+                <h3 onclick="women()">Women's clothing</h3>
+            </div>
+            <div>
+                <img src="https://cdn-icons-png.flaticon.com/128/1707/1707647.png" alt="" class="imgLogo">
+                <h3>Sort for Price</h3>
+                <button class="sort" onclick="incSort()">inc</button>
+                <button class="sort" onclick="decSort()">dec</button>
+            </div>
+    </div>
+    <hr>
+    <img src="https://cdn-icons-png.flaticon.com/128/9827/9827199.png" alt="" id="centerImg">
+    <div id="container">
+        <input type="text" id="inpValue" placeholder="search"> <button onclick="search()"><img src="https://cdn-icons-png.flaticon.com/128/751/751463.png" alt="" id="buttonLogo"></button>
+    </div>
+    <div id="root"></div>
+</body>
+<script>
+    let arr = [];
+
+    async function electro(){
+        try {
+            let res = await fetch(`https://fakestoreapi.com/products/category/electronics`)
+            let data = await res.json();
+            displayData(data);
+        } catch (error) {
+            console.error("Data not found")
+        }
+    }
+    async function jwel(){
+        try {
+            let res = await fetch(`https://fakestoreapi.com/products/category/jewelery`)
+            let data = await res.json();
+            displayData(data);
+        } catch (error) {
+            console.error("Data not found")
+        }
+    }
+    async function men(){
+        try {
+            let res = await fetch(`https://fakestoreapi.com/products/category/men's clothing`)
+            let data = await res.json();
+            displayData(data);
+        } catch (error) {
+            console.error("Data not found")
+        }
+    }
+    async function women(){
+        try {
+            let res = await fetch(`https://fakestoreapi.com/products/category/women's clothing`)
+            let data = await res.json();
+            displayData(data)
+        } catch (error) {
+            console.error("Data not found")
+        }
+    }
+
+    function incSort(){
+       arr.sort(function(a, b){
+            return a.price - b.price;
+        })
+        displayData(arr)
+    }
+    function decSort(){
+            arr.sort(function(a, b){
+                return b.price - a.price;
+            });
+            displayData(arr)
+        } 
+
+    let prodInpElement = document.querySelector("#inpValue");
+    
+    async function search(){
+        try {
+            let prodInpValue = prodInpElement.value.toLowerCase();
+            let res = await fetch(`https://fakestoreapi.com/products`);
+            let data = await res.json();
+            let newData = data.filter((ele) => ele.title.toLowerCase().includes(prodInpValue))
+            displayData(newData)
+        } catch (error) {
+            console.log("Data not found")
+        }
+    }
+    
+
+
+    let displayElement = document.querySelector("#root");
+   function displayData(data){
+    arr = data;
+    displayElement.textContent = "";
+    data.forEach(function({image, title, description, price, rating}){
+        let prodCard = document.createElement("div");
+        prodCard.className = "card"
+        let elementImg = document.createElement("img");
+        elementImg.src = image;
+        let elementTitle = document.createElement("p");
+        elementTitle.className = "prodTitle";
+        elementTitle.textContent = title;
+        let elementDescription = document.createElement("p");
+        elementDescription.className = "prodDes";
+        elementDescription.textContent = description;
+        let elementPrice = document.createElement("p");
+        elementPrice.textContent = `price: ${price}$`;
+        prodCard.append(elementImg, elementTitle, elementDescription, elementPrice)
+        displayElement.append(prodCard)
+    })
+   }
+   
+</script>
+</html>

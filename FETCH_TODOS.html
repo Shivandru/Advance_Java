@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FETCH TODOS</title>
+<!-- Visit https://jsonplaceholder.typicode.com/todos and fetch all todos
+Display all todos in form of table
+Table should contain id, title, status
+Good UI will be appreciated. -->
+<style>
+  *{
+    font-family: sans-serif;
+  }
+#todoTable{
+  margin: auto;
+  border-collapse: collapse;
+}
+.tableHead{
+  height: 50px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+}
+.tableBody{
+  font-weight: 500;
+  font-size: 18px;
+}
+td{
+  border: 1px solid black;
+  background-color: rgb(244, 255, 255);
+}
+</style>
+</head>
+<body>
+    <table id="todoTable"></table>
+</body>
+<script>
+  let todoTable = document.querySelector("#todoTable");
+  async function todo(){
+    try {
+      let res = await fetch("https://jsonplaceholder.typicode.com/todos")
+      let data = await res.json()
+      printData(data)
+    } catch (error) {
+      console.error("Data Not Found")
+    }
+  }
+  
+  function printData(data){
+    let thead = document.createElement("tr");
+    thead.className = "tableHead"
+      let th1 = document.createElement("td");
+      th1.textContent = "userId";
+      let th2 = document.createElement("td");
+      th2.textContent = "id";
+      let th3 = document.createElement("td");
+      th3.textContent = "title";
+      let th4 = document.createElement("td");
+      th4.textContent = "completed";
+      thead.append(th1, th2, th3, th4);
+      todoTable.append(thead);
+    data.forEach(function ({userId, id, title, completed}) {
+      let tbody = document.createElement("tr");
+      tbody.className = "tableBody";
+      let td1 = document.createElement("td");
+      td1.textContent = userId;
+      let td2 = document.createElement("td");
+      td2.textContent = id;
+      let td3 = document.createElement("td");
+      td3.textContent = title;
+      let td4 = document.createElement("td");
+      td4.textContent = completed;
+      tbody.append(td1, td2, td3, td4);
+      todoTable.append(tbody);
+    })
+  }
+  todo()
+</script>
+</html>
