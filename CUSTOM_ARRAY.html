@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CUSTOM ARRAY</title>
+<!-- You might have learnt about Stack data structures. It works on LIFO(last in first out) principle. In javascript this feature has been provided in the array itself. So you are curious to know how it works. So you want to implement this on your own.
+    Create a custom Array constructor which will return an array object.
+    It should have a property size based on the length of arguments passed.
+    Add the arguments as key(index) value pairs in the Array object.
+    Use the “.prototype” property to add custom methods to the Array.
+    Add following methods :-s
+.push // Should add an element at the end.
+.pop() // Should remove an element from the end.
+.top() // Should return the element at the last index.
+.print() // Should print the elements in a single line (e.g. [1,2,3,4]).
+.printReverse() // Should print the elements in a single line in reverse order.
+.size // Should return the length of the stack -->
+</head>
+<body>
+<script>
+    function customArray(...args){
+        this.size = args.length;
+        for(let i = 0; i < args.length; i++){
+            this[i] = args[i];
+        }
+    }
+    customArray.prototype.customPush = function(element){
+            this[this.size] = element;
+            this.size++;
+            return this;
+    }
+
+
+    customArray.prototype.customPop = function(){
+        let lastIndex = this.size - 1;
+        let lastElement = this[lastIndex];
+        delete this[lastIndex];
+        this.size--;
+        return this;
+    }
+
+    customArray.prototype.customTop = function(){
+        let lastIndex = this.size - 1;
+        let lastElement = this[lastIndex];
+        return lastElement;
+    }
+
+
+    customArray.prototype.customPrint = function(){
+        let arr = [];
+        for(let i = 0; i < this.size; i++){
+           arr[i] = this[i];
+        }
+        return arr;
+    }
+
+    customArray.prototype.customPrintReverse = function(){
+        let str = "";
+        for(let i = this.size-1; i >= 0; i--){
+            str += this[i] + " ";
+        }
+        return str
+    }
+
+    customArray.prototype.customSize = function(){
+        return this.size;
+    }
+    let arr = new customArray(1,2,3,4,5)
+    // console.log(arr)
+//    console.log(arr.customPush(7))
+//    console.log(arr.customTop())
+//    console.log(arr.customPrint())
+  console.log(arr.customPrintReverse())
+// console.log(arr.customSize())
+</script>
+</body>
+</html>
