@@ -1,0 +1,44 @@
+*{
+    text-align: center;
+    font-family: sans-serif;
+}
+#head{
+    margin-top: 30px;
+    height: auto;
+    width: 450px;
+    margin: auto;
+    position: relative;
+}
+input{
+    margin-top: 30px;
+    height: 50px;
+    width: 450px;
+    /* border: 2px solid black; */
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 5px;
+}
+.search>img{
+    width: 40px;
+}
+.search{
+    position: absolute;
+    right: 0px;
+    top: 50px;
+    cursor: pointer;
+}
+#container{
+    height: auto;
+    width: 80%;
+    margin: auto;
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(3, 31%);
+    gap: 10px;
+}
+.card{
+    padding: 10px;
+}
+.card :hover{
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
