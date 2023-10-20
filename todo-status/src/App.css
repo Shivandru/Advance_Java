@@ -1,0 +1,28 @@
+.taskList{
+    height: auto;
+    width: 50%;
+    /* border: 1px solid grey; */
+    margin: auto;
+    margin-top: 30px;
+}
+#addTaskBtn{
+    border: none;
+    padding: 10px;
+    width: 100px;
+    background-color: aquamarine;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 10px;
+}
+.card{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: 1px solid grey;
+    margin-bottom: 10px;
+}
+
+#resetBtn{
+    position: relative;
+    right: -80px;
+}
